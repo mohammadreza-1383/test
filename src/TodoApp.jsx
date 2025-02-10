@@ -1,63 +1,36 @@
-import { useState } from "react"
+import { useState } from "react";
+import Tasks from "./Tasks";
 
-function TodoApp(){
-const [tasks, setTasks]= useState([
-    {
-        title:"task 1",
-        id: 1
+function TodoApp() {
+  const [Todos, setTodos] = useState([]);
+  const [Newtask, setNewtask] = useState("");
+const [ShowTask,setShowTask]=useState(false);
+  function AddTask(e) {
+    if (e.key === "Enter" && e.target.value) {
+      const newTaskObj = { title: e.target.value, id: Todos.length + 1 };
+      setTodos([...Todos, newTaskObj]); // اضافه کردن به لیست
+      setNewtask(""); // پاک کردن ورودی
     }
-    ,
-    {
-        title:"task 2",
-        id: 2
-    }
-    ,{
-        title:"task 3",
-        id: 3
-    }
-    ,{
-        title:"task 4",
-        id: 4
-    }
-    ,{
-        title:"task 5",
-        id: 5
-    }
-    
-])
-const [newTask,setNewTask]= useState("")
-function handleKeyPress(p){
-    if(p.key==="Enter"&& newTask.trim() !== ""){
-        const task = {
-            title: newTask,
-            id: tasks.length + 1};
-            setTasks([...tasks, task]); 
-      setNewTask("")
-      ;
-
-    }
-
+  }
+function handlershowtask(){
+    setShowTask(!ShowTask);
+}
+  return (
+    <>
+      <input
+        type="text"
+        value={Newtask}
+        onChange={(e) => setNewtask(e.target.value)}
+        onKeyUp={AddTask}
+      />
+      <button onClick={handlershowtask}> ShowTask </button>
+     {ShowTask ? <ul>
+        {Todos.map((item)=>{
+            return <Tasks key={item.id} Title={item.title}/>
+        })}
+      </ul> :""}
+    </>
+  );
 }
 
-
-    return (
-
-        <>
-        <input type="text"
-        value={newTask}
-        onChange={function AddTask(e){
-            setNewTask(e.target.value);
-                   }}
-                   onKeyPress={handleKeyPress} 
-            placeholder="add neew task" />
-        <br />
-        <ul>
-         {tasks.map(function(e){
-            return <li key={e.id}>{e.title}</li>
-         })}
-        </ul>
-        
-        </>
-    )
-}
-export default TodoApp
+export default TodoApp;

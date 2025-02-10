@@ -19,3 +19,20 @@ code {
   border-radius: 16px;
   
 }
+button{
+  padding: 10px 20px;
+
+
+}
+.box1{
+  border: 1px solid gray;
+  padding: 50px 100px;
+  margin: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+}
+span{
+  margin: 0 10px;
+}
