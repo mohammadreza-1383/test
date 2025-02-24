@@ -1,33 +1,49 @@
-import { useState } from "react";
-import Buton from "./Buton";
-import Tamrin2 from "./Tamrin2";
-// import TodoApp from "./TodoApp";
+import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import Product from "./Product";
+import Home from "./Home";
+import About from "./About";
+import Header from "./Header";
+import Route1 from "./Route1";
+import Route2 from "./Route2";
+import Route3 from "./Route3";
+import Subrout from "./Subrout";
 function App(){
-const [count,setCount]=useState(0)
-function kahesh(){
-if(count>0){
-    setCount(count-1)
+    const [product,setProduct]=useState([]);
 
-}
-}
-function afzauesh(){
-setCount(count+1)
+async function getlistproduct() {
+    const listproduct=await fetch("https://fakestoreapi.com/products");
+    const listProductData=await listproduct.json();
+    setProduct(listProductData);
+    
 }
 
+useEffect(() => {
+    async function fetchData() {
+        await getlistproduct();
+    }
+    fetchData();
+}, []);
 
-return(
+  
+  return(
 
-<>
-<Tamrin2>
-    <Buton onclick={kahesh}>
-        -
-    </Buton>
-    <span>{count}</span>
-    <Buton onclick={afzauesh}>
-        +
-    </Buton>
-</Tamrin2>
-</>
+ <>
+ <Header />
+<Routes>
+    
+<Route path="/route-1" element={<Route1 />} />
+
+<Route path="/route-2" element={<Route2 />}>
+<Route path=":id" element={<Subrout />} />
+
+</Route>
+<Route path="/route-3" element={<Route3 />} />
+
+
+
+</Routes>
+</> 
 
 
 )}
